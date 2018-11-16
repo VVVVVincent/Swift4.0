@@ -1,3 +1,13 @@
+//
+//  ViewController.swift
+//  SwiftCode
+//
+//  Created by 李慧娟 on 2018/10/29.
+//  Copyright © 2018年 李慧娟. All rights reserved.
+//
+
+import UIKit
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
