@@ -97,10 +97,6 @@ class ViewController: UIViewController {
             currentValue = funcValue(currentValue)
         }
 
-
-
-
-
     }
 
     //MARK: - 定义函数
