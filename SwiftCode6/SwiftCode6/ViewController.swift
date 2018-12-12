@@ -134,10 +134,6 @@ class ViewController: UIViewController {
         print("我是类方法哦～")
         return "😂😄😁"
     }
-
-
-
-
 }
 
 
