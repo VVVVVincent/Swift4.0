@@ -37,6 +37,36 @@ class CustomeClass {
     }
 }
 
+/*
+ // MARK: - 析构过程（反初始化）
+ ------------------------------------
+ 是在一个类被释放之前调用的，用关键词deinit来标示析构g函数，析构函数只能适用于类类型,相当于OC中的dealloc；
+ 析构原理：
+ swift会自动释放不再需要的实例以释放资源，使用ARC来自动管理内存，
+ 通常当实例被释放时不需要手动清理，但是当使用自己的资源时，可能需要额外情况，
+ 如果一个类的父类有析构函数，即使自己没有提供析构函数，在自己被释放时，也会调用父类的析构函数
+
+ 定义析构函数的语法：
+ 每个类最多只能有一个析构函数。析构函数不带任何参数，在写法上不带括号
+ deinit {
+ // 执行析构过程
+ }
+ */
+
+var num = 0
+class DeinitClass {
+    init() {
+        num += 1
+        print("我刚刚被初始化～")
+    }
+
+    deinit {
+        num = 0
+        print("我即将被释放～")
+    }
+}
+
+
 class ViewController: UIViewController {
     /*
      // MARK: - 1.设置存储属性的初始化值
@@ -200,7 +230,7 @@ class ViewController: UIViewController {
      ------------------------------
      required在类初始化程序的定义之前编写修饰符，以指示该类的每个子类都必须实现该初始化程序
      */
-    class class1 {
+    class Class1 {
         var name:String
 
         required init(str: String) {
@@ -208,7 +238,7 @@ class ViewController: UIViewController {
         }
     }
 
-    class class2: class1 {
+    class Class2: Class1 {
         required init(str: String) {
             super.init(str: str)
             self.name = "my name is " + str
@@ -224,19 +254,9 @@ class ViewController: UIViewController {
      闭包的结束大括号后面是一对空括号。这告诉Swift立即执行关闭。
      如果省略这些括号，则试图将闭包本身分配给属性，而不是闭包的返回值
      */
-    class someClass {
-//        let array:[Int] = [1,4,5,6,8]
-//
-//        let closure = {(array) -> Int in
-//            return
-//        }
-//
+    class SomeClass {
         let someStr: String = {return "哈哈"}()
     }
-
-
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -316,13 +336,20 @@ class ViewController: UIViewController {
         print("------------------------------")
 
         // 必需的初始化程序
-        let myClass = class2.init(str: "lhj")
+        let myClass = Class2.init(str: "lhj")
         print(myClass.name)
         print("------------------------------")
 
         // 使用闭包初始化
-        let myClass2 = someClass.init()
+        let myClass2 = SomeClass.init()
         print(myClass2.someStr)
+        print("------------------------------")
+
+        // 析构过程（反初始化）
+        var deinitClass: DeinitClass? = DeinitClass()
+        print(num)
+        deinitClass = nil
+        print(num)
 
     }
 }
